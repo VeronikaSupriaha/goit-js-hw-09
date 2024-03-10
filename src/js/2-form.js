@@ -3,7 +3,6 @@ const storageKey = 'feedback-form-state';
 const textarea = form.querySelector('textarea');
 
 function updatedLocalStorage(event) {
-  event.preventDefault();
   const message = textarea.value.trim();
   const email = form.elements.email.value.trim();
   const data = JSON.stringify({ message, email });
@@ -28,8 +27,9 @@ function formReset(event) {
   if (email === '' || message === '') {
     alert('All form fields must be filled in');
   } else {
-    const data = JSON.parse(savedData);
+    const data = { message, email };
     console.log(data);
+    localStorage.removeItem(storageKey);
     form.reset();
   }
 }
